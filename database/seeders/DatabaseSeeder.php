@@ -2,8 +2,14 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Lunar\Hub\Models\Staff;
+use Lunar\Models\AttributeGroup;
+use Lunar\Models\Country;
+use Lunar\Models\ProductType;
+use Lunar\Models\TaxClass;
+
+use function PHPSTORM_META\map;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +20,48 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        AttributeGroup::create([
+            'attributable_type' => 'prodict',
+            'name' => 'bakero',
+            'handle' => 'details',
+            'position' => 1
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        TaxClass::create([
+            'name' => 'PH',
+            'default' => 1
+        ]);
+        Country::create([
+
+            'name' => 'Philippines',
+            'iso3' => '301',
+            'iso2' => '5ff',
+            'phonecode' => '+63',
+            'capital' => 'Manila',
+            'currency' => 'PH',
+            'native' => 'Bisaya',
+            'emoji' => 'P',
+            'emoji_u' => 'PP'
+        ]);
+
+        Staff::create([
+            'admin' => 1,
+            'firstname' => 'Adrian',
+            'lastname' => 'Radores',
+            'email' => 'mobistyle35@gmail.com',
+            'password' => bcrypt('Asakaboi35')
+        ]);
+
+        ProductType::create([
+            'name' => 'baluga'
+        ]);
+
+
+        $this->call(CollectionSeeder::class);
+        $this->call(AttributeSeeder::class);
+        $this->call(TaxSeeder::class);
+        // $this->call(ProductSeeder::class);
+        // $this->call(CustomerSeeder::class);
+        // $this->call(OrderSeeder::class);
     }
 }
